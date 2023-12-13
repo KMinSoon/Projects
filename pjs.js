@@ -12,7 +12,6 @@ function popUp() {
   popupWindow.onresize = (_) => {
     popupWindow.resizeTo(400, 450);
   };
-  //window.close();
 }
 
 //pSelect
@@ -127,7 +126,7 @@ function showVs() {
 }
 
 function ex() {
-  bb.innerHTML += '<button id="explain">게임 설명</button>';
+  bb.innerHTML += '<button id="explain" onclick="gameEx()">게임 설명</button>';
 }
 
 function initPlayerStatus() {
@@ -158,6 +157,18 @@ function eHp(hp) {
     document.getElementById('ehp').style = 'width: 5px';
     document.getElementById('ehp').style.background = '#d1180b';
   }
+}
+
+function gameEx() {
+  popupWindow = window.open(
+    './pExplains.html',
+    'explaining',
+    'left=' + 193.5 + ',top=' + 158.5 + ',resizable=no'
+  );
+  popupWindow.resizeTo(400, 450);
+  popupWindow.onresize = (_) => {
+    popupWindow.resizeTo(400, 450);
+  };
 }
 
 async function pwrite(str) {
@@ -215,10 +226,12 @@ function btnSkill1() {
     if (w > 0) {
       document.getElementById('edf').innerText = --edef;
       pwrite('의 꼬리흔들기!<br>상대의 물리방어가 떨어졌다!');
-      setTimeout(eattack, 2000);
+      turnEnd();
+      setTimeout(eattack, 1000);
     } else {
       pwrite('의 꼬리흔들기!<br>상대의 물리방어는 더 떨어지지 않는다.');
-      setTimeout(eattack, 2000);
+      turnEnd();
+      setTimeout(eattack, 1000);
     }
   } else {
     pwrite('의 꼬리흔들기!<br>PP가 부족해 사용할 수 없다!');
@@ -232,10 +245,12 @@ function btnSkill2() {
     if (w > 0) {
       document.getElementById('esdf').innerText = --espDef;
       pwrite('의 거짓울음!<br>상대의 특수방어가 떨어졌다.');
-      setTimeout(eattack, 2000);
+      turnEnd();
+      setTimeout(eattack, 1000);
     } else {
       pwrite('의 거짓울음!<br>상대의 특수방어는 더 떨어지지 않는다.');
-      setTimeout(eattack, 2000);
+      turnEnd();
+      setTimeout(eattack, 1000);
     }
   } else {
     pwrite('의 거짓울음!<br>PP가 부족해 사용할 수 없다!');
@@ -249,11 +264,18 @@ function btnSkill3() {
   var t = document.getElementById('vision1').innerText;
   if (q > 0) {
     document.getElementById('s3pp').innerText = --pp3;
-    if (h > 0) {
+    if (buf > 0) {
       document.getElementById('eh').innerText = buf;
       pwrite('의 ' + t + '!<br>' + (10 - w) + '의 피해를 입혔다!');
       eHp(buf);
-      setTimeout(eattack, 2000);
+      turnEnd();
+      setTimeout(eattack, 1000);
+    } else {
+      document.getElementById('eh').innerText = buf;
+      pwrite('의 ' + t + '!<br>' + (10 - w) + '의 피해를 입혔다!');
+      eHp(buf);
+      turnEnd();
+      setTimeout(victory, 1000);
     }
   } else {
     pwrite('의 ' + t + '!<br>PP가 부족해 사용할 수 없다!');
@@ -267,11 +289,18 @@ function btnSkill4() {
   var t = document.getElementById('vision2').innerText;
   if (q > 0) {
     document.getElementById('s4pp').innerText = --pp4;
-    if (h > 0) {
+    if (buf > 0) {
       document.getElementById('eh').innerText = buf;
       pwrite('의 ' + t + '!<br>' + (15 - w) + '의 피해를 입혔다!');
       eHp(buf);
-      setTimeout(eattack, 2000);
+      turnEnd();
+      setTimeout(eattack, 1000);
+    } else {
+      document.getElementById('eh').innerText = buf;
+      pwrite('의 ' + t + '!<br>' + (15 - w) + '의 피해를 입혔다!');
+      eHp(buf);
+      turnEnd();
+      setTimeout(victory, 1000);
     }
   } else {
     pwrite('의 ' + t + '!<br>PP가 부족해 사용할 수 없다!');
@@ -297,33 +326,115 @@ function eattack() {
     if (p > 0) {
       document.getElementById('pldf').innerText = --pdef;
       ewrite('적의 꼬리흔들기!<br>내 포켓몬의 물리방어가 떨어졌다!');
+      turnOn();
     } else {
       ewrite('적의 꼬리흔들기!<br>내 포켓몬의 물리방어는 더 떨어지지 않는다.');
+      turnOn();
     }
   } else if (arand == 1) {
     if (o > 0) {
       document.getElementById('plsdf').innerText = --pspDef;
       ewrite('적의 거짓울음!<br>내 포켓몬의 특수방어가 떨어졌다.');
+      turnOn();
     } else {
       ewrite('적의 거짓울음!<br>내 포켓몬의 특수방어는 더 떨어지지 않는다.');
+      turnOn();
     }
   } else if (arand == 2) {
     buf = i - (10 - p);
-    if (i > 0) {
+    if (buf > 0) {
       document.getElementById('plh').innerText = buf;
       ewrite('적의 물리공격!<br>' + (10 - p) + '의 피해를 입었다!');
       pHp(buf);
+      turnOn();
+    } else {
+      document.getElementById('plh').innerText = buf;
+      ewrite('적의 물리공격!<br>' + (10 - p) + '의 피해를 입었다!');
+      pHp(buf);
+      setTimeout(defeated, 1000);
     }
   } else if (arand == 3) {
     buf = i - (15 - o);
-    if (i > 0) {
+    if (buf > 0) {
       document.getElementById('plh').innerText = buf;
       ewrite('적의 특수공격!<br>' + (15 - o) + '의 피해를 입었다!');
       pHp(buf);
+      turnOn();
+    } else {
+      document.getElementById('plh').innerText = buf;
+      pwrite('적의 특수공격!<br>' + (15 - o) + '의 피해를 입었다!');
+      pHp(buf);
+      setTimeout(defeated, 1000);
     }
   }
 }
 
 function ewrite(str) {
   mid.innerHTML = str;
+}
+
+function victory() {
+  popX = window.screen.width / 2 - 200;
+  popY = window.screen.height / 2 - 225;
+
+  popupWindow = window.open(
+    './pVictory.html',
+    'starting',
+    'left=' + popX + ',top=' + popY + ',resizable=no'
+  );
+  popupWindow.resizeTo(400, 450);
+  popupWindow.onresize = (_) => {
+    popupWindow.resizeTo(400, 450);
+  };
+  window.close();
+}
+
+function defeated() {
+  popX = window.screen.width / 2 - 200;
+  popY = window.screen.height / 2 - 225;
+
+  popupWindow = window.open(
+    './pDefeated.html',
+    'starting',
+    'left=' + popX + ',top=' + popY + ',resizable=no'
+  );
+  popupWindow.resizeTo(400, 450);
+  popupWindow.onresize = (_) => {
+    popupWindow.resizeTo(400, 450);
+  };
+  window.close();
+}
+
+function turnEnd() {
+  var chilNodes = document.getElementById('footer').getElementsByTagName('*');
+  for (var node of chilNodes) {
+    node.disabled = true;
+  }
+}
+
+function turnOn() {
+  var chilNodes = document.getElementById('footer').getElementsByTagName('*');
+  for (var node of chilNodes) {
+    node.disabled = false;
+  }
+}
+
+// pVictory & pDefeated
+function retry() {
+  popX = window.screen.width / 2 - 200;
+  popY = window.screen.height / 2 - 225;
+
+  popupWindow = window.open(
+    './pSelect.html',
+    'starting',
+    'left=' + popX + ',top=' + popY + ',resizable=no'
+  );
+  popupWindow.resizeTo(400, 450);
+  popupWindow.onresize = (_) => {
+    popupWindow.resizeTo(400, 450);
+  };
+}
+
+function exit() {
+  window.close();
 }

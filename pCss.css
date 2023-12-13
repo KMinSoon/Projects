@@ -150,3 +150,57 @@
   font-size: 16px;
   font-family: monospace;
 }
+
+/*pVictory & pDefeated*/
+#vv {
+  width: 360px;
+  height: 300px;
+  position: absolute;
+  top: 10px;
+  left: 13px;
+}
+
+#res {
+  position: absolute;
+  top: 235px;
+  left: 160px;
+  text-align: center;
+}
+
+#retry {
+  font-size: 20px;
+  padding: 14px 40px;
+  position: absolute;
+  top: 300px;
+  left: 20px;
+  border: 2px solid #ffbcee;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  background-color: #ffffff;
+}
+#retry:hover {
+  background-color: #ffbcee;
+  color: #ffffff;
+}
+
+#exit {
+  font-size: 20px;
+  padding: 14px 40px;
+  position: absolute;
+  top: 300px;
+  right: 20px;
+  border: 2px solid #ffbcee;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  background-color: #ffffff;
+}
+#exit:hover {
+  background-color: #ffbcee;
+  color: #ffffff;
+}
+
+/*pExplains*/
+#ll {
+  font-size: 14px;
+  font-family: sans-serif;
+}
