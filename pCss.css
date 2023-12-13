@@ -1,0 +1,152 @@
+/*poketmon*/
+#title {
+  font-size: 5vmax;
+  font-family: fantasy;
+  text-align: center;
+  position: absolute;
+  top: 15%;
+  left: 30%;
+  right: 30%;
+}
+
+#start {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 8px;
+  border: 2px solid #000000;
+  padding: 2vmin 3vmin;
+  font-size: 3vmin;
+  position: absolute;
+  top: 40%;
+  left: 43%;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+#start:hover {
+  background-color: #765285;
+  color: #ffffff;
+}
+
+/*pSelect*/
+.pBall {
+  background: url('./picture/볼.jpg') no-repeat;
+  width: 150px;
+  height: 150px;
+  margin: 0;
+}
+
+#choose {
+  margin-left: 8%;
+  margin-top: 3.5%;
+}
+
+#panel {
+  text-align: center;
+  background-color: #ffffff;
+  margin: 0;
+}
+
+/*pCheck*/
+#cc {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/*pBattle*/
+#header {
+  margin: 0;
+  height: 295px;
+  border: 2px solid #000000;
+}
+
+#contents {
+  margin: 0;
+  height: 75px;
+  border: 2px solid #000000;
+}
+
+#footer {
+  margin: 0;
+  height: 266px;
+  border: 2px solid #000000;
+}
+
+.player {
+  position: absolute;
+  top: 135px;
+  left: 10px;
+}
+
+.enermy {
+  position: absolute;
+  top: 135px;
+  right: 10px;
+}
+
+#versus {
+  position: absolute;
+  top: 80px;
+  right: 175px;
+}
+
+#pStatus {
+  margin: 0;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ffd400;
+  height: 120px;
+  width: 140px;
+  font-size: 15px;
+  border: 1px solid #000000;
+}
+
+#eStatus {
+  margin: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffd400;
+  height: 120px;
+  width: 140px;
+  font-size: 15px;
+  border: 1px solid #000000;
+}
+
+#explain {
+  margin: 0;
+  position: absolute;
+  top: 40px;
+  right: 210px;
+}
+
+#php {
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 275px;
+  left: 160px;
+  background-color: #00ff00;
+  border: 2px solid #000000;
+}
+
+#ehp {
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 275px;
+  right: 160px;
+  background-color: #00ff00;
+  border: 2px solid #000000;
+}
+
+.vision {
+  margin: 5px;
+  border: 2px solid #000000;
+  width: 230px;
+  height: 120px;
+  font-size: 16px;
+  font-family: monospace;
+}
