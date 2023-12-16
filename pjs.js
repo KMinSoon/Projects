@@ -1,6 +1,7 @@
 //poketmon
 var popX = window.screen.width / 2 - 200;
 var popY = window.screen.height / 2 - 225;
+var myChar = sessionStorage.getItem('myChar');
 
 function popUp() {
   popupWindow = window.open(
@@ -15,33 +16,30 @@ function popUp() {
 }
 
 //pSelect
-function check(perNum) {
-  window.location.replace('./pCheck.html');
-  navigator.clipboard.writeText(perNum);
+var MC;
+
+function check() {
+  location.replace('./pCheck.html');
+  MC = Math.floor(Math.random() * 4);
+  sessionStorage.setItem('myChar', MC);
 }
 
 //pCheck
 var bb = document.getElementById('aa');
 
-async function showImg() {
-  try {
-    var value = await navigator.clipboard.readText();
-
-    if (value == 0) {
-      bb.innerHTML = "<img src='./picture/피카츄.gif'>";
-      document.body.style.background = '#0063dc';
-    } else if (value == 1) {
-      bb.innerHTML = "<img src='./picture/파이리.gif'>";
-      document.body.style.background = '#351c4d';
-    } else if (value == 2) {
-      bb.innerHTML = "<img src='./picture/꼬부기.gif'>";
-      document.body.style.background = '#fbb9ab';
-    } else if (value == 3) {
-      bb.innerHTML = "<img src='./picture/이상해씨.gif'>";
-      document.body.style.background = '#cfc9c2';
-    }
-  } catch (e) {
-    console.error(e);
+function showImg() {
+  if (myChar == 0) {
+    bb.innerHTML = "<img src='./picture/피카츄.gif'>";
+    document.body.style.background = '#0063dc';
+  } else if (myChar == 1) {
+    bb.innerHTML = "<img src='./picture/파이리.gif'>";
+    document.body.style.background = '#351c4d';
+  } else if (myChar == 2) {
+    bb.innerHTML = "<img src='./picture/꼬부기.gif'>";
+    document.body.style.background = '#fbb9ab';
+  } else if (myChar == 3) {
+    bb.innerHTML = "<img src='./picture/이상해씨.gif'>";
+    document.body.style.background = '#cfc9c2';
   }
 }
 
@@ -50,7 +48,7 @@ function backPage() {
 }
 
 function go() {
-  popX = window.screen.width / 2 - 250;
+  popX = window.screen.width / 2 - 255;
   popY = window.screen.height / 2 - 360;
 
   popupWindow = window.open(
@@ -58,9 +56,9 @@ function go() {
     'playing',
     'left=' + popX + ',top=' + popY + ',resizable=no'
   );
-  popupWindow.resizeTo(500, 720);
+  popupWindow.resizeTo(510, 720);
   popupWindow.onresize = (_) => {
-    popupWindow.resizeTo(500, 720);
+    popupWindow.resizeTo(510, 720);
   };
   window.close();
 }
@@ -82,31 +80,26 @@ var php = 60,
 var buttons = document.getElementById('footer');
 var mid = document.getElementById('list');
 
-async function headerImgs() {
-  try {
-    bb = document.getElementById('header');
-    var value = await navigator.clipboard.readText();
+function headerImgs() {
+  bb = document.getElementById('header');
 
-    if (value == 0) {
-      bb.innerHTML = "<img src='./picture/피카츄.gif' class='player'>";
-    } else if (value == 1) {
-      bb.innerHTML = "<img src='./picture/파이리.gif' class='player'>";
-    } else if (value == 2) {
-      bb.innerHTML = "<img src='./picture/꼬부기.gif' class='player'>";
-    } else if (value == 3) {
-      bb.innerHTML = "<img src='./picture/이상해씨.gif' class='player'>";
-    }
-
-    showVs();
-    ex();
-    enermyChar();
-    initPlayerStatus();
-    initEnermyStatus();
-    skills();
-    spddiff();
-  } catch (e) {
-    console.error(e);
+  if (myChar == 0) {
+    bb.innerHTML = "<img src='./picture/피카츄.gif' class='player'>";
+  } else if (myChar == 1) {
+    bb.innerHTML = "<img src='./picture/파이리.gif' class='player'>";
+  } else if (myChar == 2) {
+    bb.innerHTML = "<img src='./picture/꼬부기.gif' class='player'>";
+  } else if (myChar == 3) {
+    bb.innerHTML = "<img src='./picture/이상해씨.gif' class='player'>";
   }
+
+  showVs();
+  ex();
+  enermyChar();
+  initPlayerStatus();
+  initEnermyStatus();
+  skills();
+  spddiff();
 }
 
 function enermyChar() {
@@ -171,50 +164,39 @@ function gameEx() {
   };
 }
 
-async function pwrite(str) {
-  try {
-    var value = await navigator.clipboard.readText();
-
-    if (value == 0) {
-      mid.innerHTML = '피카츄' + str;
-    } else if (value == 1) {
-      mid.innerHTML = '파이리' + str;
-    } else if (value == 2) {
-      mid.innerHTML = '꼬부기' + str;
-    } else if (value == 3) {
-      mid.innerHTML = '이상해씨' + str;
-    }
-  } catch (e) {
-    console.log(e);
+function pwrite(str) {
+  if (myChar == 0) {
+    mid.innerHTML = '피카츄' + str;
+  } else if (myChar == 1) {
+    mid.innerHTML = '파이리' + str;
+  } else if (myChar == 2) {
+    mid.innerHTML = '꼬부기' + str;
+  } else if (myChar == 3) {
+    mid.innerHTML = '이상해씨' + str;
   }
 }
 
-async function skills() {
-  try {
-    var value = await navigator.clipboard.readText();
-    buttons.innerHTML =
-      `<button class="vision" onclick="btnSkill1()">꼬리흔들기<br>PP: <span id="s1pp">${pp1}</span>/5<br><br>"물리방어를 1깎습니다."</button>` +
-      `<button class="vision" onclick="btnSkill2()">거짓울음<br>PP: <span id="s2pp">${pp2}</span>/5<br><br>"특수방어를 1깎습니다."</button>`;
+function skills() {
+  buttons.innerHTML =
+    `<button class="vision" onclick="btnSkill1()">꼬리흔들기<br>PP: <span id="s1pp">${pp1}</span>/5<br><br>"물리방어를 1깎습니다."</button>` +
+    `<button class="vision" onclick="btnSkill2()">거짓울음<br>PP: <span id="s2pp">${pp2}</span>/5<br><br>"특수방어를 1깎습니다."</button>`;
 
-    if (value == 0) {
-      buttons.innerHTML +=
-        `<button class="vision" onclick="btnSkill3()"><span id="vision1">할퀴기</span><br>PP:<span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
-        `<button class="vision" style="background-color: #fefd48" onclick="btnSkill4()"><span id="vision2">전기쇼크</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
-    } else if (value == 1) {
-      buttons.innerHTML +=
-        `<button class="vision" onclick="btnSkill3()"><span id="vision1">할퀴기</span><br>PP: <span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
-        `<button class="vision" style="background-color: #ff7f50" onclick="btnSkill4()"><span id="vision2">불꽃세례</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
-    } else if (value == 2) {
-      buttons.innerHTML +=
-        `<button class="vision" onclick="btnSkill3()"><span id="vision1">박치기</span><br>PP: <span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
-        `<button class="vision" style="background-color: #79edff" onclick="btnSkill4()"><span id="vision2">거품광선</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
-    } else if (value == 3) {
-      buttons.innerHTML +=
-        `<button class="vision" onclick="btnSkill3()"><span id="vision1">박치기</span><br>PP: <span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
-        `<button class="vision" style="background-color: #00ff00" onclick="btnSkill4()"><span id="vision2">잎날가르기</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
-    }
-  } catch (e) {
-    console.log(e);
+  if (myChar == 0) {
+    buttons.innerHTML +=
+      `<button class="vision" onclick="btnSkill3()"><span id="vision1">할퀴기</span><br>PP:<span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
+      `<button class="vision" style="background-color: #fefd48" onclick="btnSkill4()"><span id="vision2">전기쇼크</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
+  } else if (myChar == 1) {
+    buttons.innerHTML +=
+      `<button class="vision" onclick="btnSkill3()"><span id="vision1">할퀴기</span><br>PP: <span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
+      `<button class="vision" style="background-color: #ff7f50" onclick="btnSkill4()"><span id="vision2">불꽃세례</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
+  } else if (myChar == 2) {
+    buttons.innerHTML +=
+      `<button class="vision" onclick="btnSkill3()"><span id="vision1">박치기</span><br>PP: <span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
+      `<button class="vision" style="background-color: #79edff" onclick="btnSkill4()"><span id="vision2">거품광선</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
+  } else if (myChar == 3) {
+    buttons.innerHTML +=
+      `<button class="vision" onclick="btnSkill3()"><span id="vision1">박치기</span><br>PP: <span id="s3pp">${pp3}</span>/5<br>피해: 10<br>"물리피해를 줍니다."</button>` +
+      `<button class="vision" style="background-color: #00ff00" onclick="btnSkill4()"><span id="vision2">잎날가르기</span><br>PP: <span id="s4pp">${pp4}</span>/5<br>피해: 15<br>"특수피해를 줍니다."</button>`;
   }
 }
 

@@ -29,9 +29,9 @@
 
 /*pSelect*/
 .pBall {
-  background: url('./picture/볼.jpg') no-repeat;
-  width: 150px;
-  height: 150px;
+  background: url('./picture/볼.png') no-repeat;
+  width: 300px;
+  height: 300px;
   margin: 0;
 }
 
